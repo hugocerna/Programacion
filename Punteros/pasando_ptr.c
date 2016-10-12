@@ -22,13 +22,13 @@ int main()
 }
 
 /* Esta función retorna el elemento mayor de un arreglo de enteros */
-int mayor(int num_arreglo[], int lon)
+int mayor(int* num_arreglo, int lon)
 {
-	int max = num_arreglo[0];
-	for ( cont = 0; cont < lon; cont++)
+	int max = *(num_arreglo+0);
+	for ( cont = 1; cont < lon; cont++)
 	{
-		if (num_arreglo[cont] > max)
-			max = num_arreglo[cont];
+		if (*(num_arreglo + cont)> max)
+			max = *(num_arreglo+cont);
 	}
 	return max;
 }
