@@ -1,85 +1,80 @@
+// Mostrando la generación aleatoria de una cadena de letras MAYÚSCULAS y sus estadísticas
+
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h> // en algunos compiladores NO es necesario incluirla para poder emplear la función rand()
 
-#define tamanho_max 1000 
+#define LonMax 100
 
-/* Prototipo de la funciones */
-void generar_cadena_de_letras(char a[]);
-int ingresar_tamanho(void); 
-void generar_cadena_aleatoria(char a[], int tam);
-void mostrar_cadena(char a[], int tam);
-void mostrar_estadisticas(char cad_letras[], char cad_aleatoria[], int tam);
+// Variable globales
+char cad_letras[27]; // para almacenar la cadena de letras MAYÚSCULAS
+char cad_aleatoria[LonMax + 1];
+int i, j; // para almacenar índices
+
+// Prototipo de la funciones 
+void generar_cadena_letras (); 
+void generar_cadena_aleatoria (int lon);
+void mostrar_cadena ();
+void mostrar_estadisticas ();
+int ingresar_longitud ();
 
 int main() 
 {
-	int tamanho;
-	char cad_letras[27];
-	char cad_aleatoria[tamanho_max + 1];
-	generar_cadena_de_letras(cad_letras);
-	tamanho = ingresar_tamanho();
-	generar_cadena_aleatoria(cad_aleatoria, tamanho);
-	mostrar_cadena(cad_aleatoria, tamanho);
-	mostrar_estadisticas(cad_letras, cad_aleatoria, tamanho);
+	int longitud;
+	generar_cadena_letras ();
+	longitud = ingresar_longitud ();
+	generar_cadena_aleatoria (longitud);
+	mostrar_cadena ();
+	mostrar_estadisticas ();
 }
 
-/* Funcion que genera la cadena de letras */
-void generar_cadena_de_letras(char a[])
+/* Función que genera la cadena de letras MAYÚSCULAS */
+void generar_cadena_letras ()
 {
-	int i = 65;
-	for( ; i <= 90 ; i++)
-	{
-		a[i - 64] = i;
-	} 
+	for( i = 0 ; i <= 25 ; i++)
+		cad_letras[i] = i + 65;
+	cad_letras[i] = '\0'; // asignando a cad_letras[26] el caracter nulo
 }
 
-/* Funcion que genera la cadena aleatoria de tamanho tam */
-void generar_cadena_aleatoria(char a[], int tam)
+int ingresar_longitud () 
 {
-	srand(time(NULL));
-	int i = 1;
-	for(; i <= tam; i++)
-	{
-		a[i] = rand()%26 + 65;
-	} 
-}
-
-/* Funcion que imprime la cadena a[] de tamanho tam */
-void mostrar_cadena(char a[], int tam)
-{
-	int i = 1;
-	for(; i <= tam; i++)
-	{
-		printf("%c ",a[i]);
-	}
-	printf("\n");
-}
-
-/* Funcion de entra del tamanho de una cadena */
-int ingresar_tamanho(void) 
-{
-	int ok = 0; 
-	int N; // variable donde almacenar\'e lo que voy a retornar
-	do
-	{
-		printf("Ingrese el tamanho del arreglo aleatorio a genrar: "); 
-		scanf("%d",&N);
-		if (N <= tamanho_max) ok = 1; // en caso que N sea menor o igual a tamanho_max, asignamos ok = 1 para salir del bucle
-		else printf("El tamnho no puede ser mayor que 1000!\n");
-	}
-	while (ok == 0);
+	int N; 
+	printf("\n Ingrese la longitud (<= %d) de la cadena aleatorio a generar: ", LonMax); 
+	scanf("%d",&N);
 	return N;	
 }
 
-/* Funcion que muestra las veces que aparece cada letra en la cadena aleatoria generada */
-void mostrar_estadisticas(char cad_letras[], char cad_aleatoria[], int tam)
+/* Funcion que genera la cadena aleatoria de tamaño lon */
+void generar_cadena_aleatoria (int lon)
 {
-	int i, j, cont;
-	printf("Estadisticas de la cadena aleatoria generada%c", 10);
-	for( i = 1 ; i <= 26 ; i++ )
+	for( i = 0 ; i < lon; i++)
+	// Asignando aleatoriamente a cad_aleatoria[i] un valor entero del intervalo [65,90] 
+		cad_aleatoria[i] = rand()%26 + 65;
+	cad_aleatoria[i] = '\0'; // asignando a cad_aleatoria[lon] el caracter nulo 
+}
+
+void mostrar_cadena ()
+{
+	printf("\n Cadena generada aleatoriamente: ");
+	i = 0;
+	while (cad_aleatoria[i] != '\0')
+	// mostrando el valor de a[i] y luego asignando a i el valor de i+1
+		printf("%c", cad_aleatoria[i++]);
+	printf("\n");
+}
+
+/* Funcion que muestra las veces que aparece cada letra en la cadena aleatoria generada */
+void mostrar_estadisticas ()
+{
+	int cont, sum = 0;
+	printf("\n Estadísticas de la cadena aleatoria generada:%c", 10);
+	for( i = 0 ; i < 26 ; i++ )
 	{
 		cont = 0;
-		for( j = 1 ; j <= tam ; j++ )
-			if( cad_letras[i] == cad_aleatoria[j] ) cont++;
-		printf("La letra %c aparece %i veces%c", 64+i, cont, 10);
-	} 
+		j = 0;
+		while (cad_aleatoria[j] != '\0')
+			if(cad_letras[i] == cad_aleatoria[j++]) cont++;
+		printf(" La letra %c aparece %i veces%c", cad_letras[i], cont, 10);
+		sum += cont; // sum = sum + cont
+	}
+	printf("\n Total de letras generas aleatoriamente: %d%c%c", sum, 10, 10);
 }
