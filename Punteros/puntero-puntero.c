@@ -10,7 +10,7 @@ int ** rodrigo;
 void main ()
 {
 	johel = &joaquin;
-    rodrigo = &johel;    
+    	rodrigo = &johel;    
 	
 	/* Accesando a var directamente e indirectamente */
 	printf("\n Acceso directo: joaquin = %d", joaquin);
