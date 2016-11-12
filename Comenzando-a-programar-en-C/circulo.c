@@ -1,11 +1,10 @@
 #include <stdio.h> 
 
-#define PI 3.14
-
 
 void main( void )
 {
-    float radio, diametro, perimetro, area;
+	#define PI 3.14
+	float radio, diametro, perimetro, area;
 
 	/* ingresando datos */
 	printf("\n Ingrese el radio del circulo: ");
