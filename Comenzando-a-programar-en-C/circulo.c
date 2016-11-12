@@ -1,21 +1,17 @@
 #include <stdio.h> 
+#include <math.h>
 
 
 void main( void )
 {
 	#define PI 3.14
-	float radio, diametro, perimetro, area;
+	float radio;
 
 	/* ingresando datos */
 	printf("\n Ingrese el radio del circulo: ");
 	scanf("%f", &radio);
 
-	/* realizando las conversiones */
-	diametro = 2*radio;
-	perimetro = 2*PI*radio;
-	area = PI*radio*radio;
-
-	printf(" diametro = %f \n", diametro);
-	printf(" perimetro = %f \n", perimetro);
-	printf(" area = %f \n\n", area);
+	printf(" diametro = %f \n", 2*radio);
+	printf(" perimetro = %f \n", 2*PI*radio);
+	printf(" area = %f \n\n", PI*pow(radio,2) );
 }
