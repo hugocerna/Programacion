@@ -47,6 +47,7 @@ void Ordenar(int** Arr, int longitud){
 	}
 }
 
+//No se usa 'Llenar()'
 void Llenar(int** Arr, int longitud){
 	int i;
 	for(i = 0; i < longitud; i++){
